@@ -1,0 +1,36 @@
+create table employee2 (id int,dept varchar(20),sal int,location varchar(20));
+insert into table employee values (1,"cs",7000,"chennai");
+insert into table employee values (2,"cs",7000,"chennai");
+insert into table employee values (3,"cs",7000,"chennai");
+insert into table employee values (4,"cs",7000,"chennai");
+insert into table employee values (5,"cs",7000,"chennai");
+insert into table employee values (6,"cs",7000,"chennai");
+insert into table employee values (7,"cs",7000,"chennai");
+insert into table employee values (8,"cs",7000,"chennai");
+insert into table employee values (9,"cs",7000,"chennai");
+insert into table employee values (10,"cs",7000,"chennai");
+
+
+
+
+
+sqoop import --connect jdbc:mysql://localhost:3306/s 
+-username root 
+--split-by id 
+--cloumns id,dept,sal,location --table employee2  
+--target-dir /user/acadgild/pro
+--incremental append \
+--check-column id \
+--last-value 10 \
+-m 1;
+
+insert into employee2 values(11, "cs",1000,'abc');
+insert into employee2 values(12, "cs",1000,'def');
+commit;
+
+sqoop import --connect jdbc:mysql://localhost/s \
+--username 'root' -P --table 'company' --target-dir '/sqoopout' \
+--incremental append \
+--check-column id \
+--last-value 12 \
+-m 1;
